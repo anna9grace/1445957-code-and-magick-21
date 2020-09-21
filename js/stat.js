@@ -33,7 +33,40 @@ var getRandomInt = function (max) {
 };
 
 
-window.renderStatistics = function (ctx, names, items) {
+var renderPlayersResults = function (ctx, names, times) {
+  var maxTime = getMaxElement(times);
+
+  for (var i = 0; i < names.length; i++) {
+    var currentBarHeight = (BAR_HEIGHT * times[i]) / maxTime;
+    var currentX = CANVAS_X + BAR_GAP + (BAR_WIDTH + BAR_GAP) * i;
+    var currentY = CANVAS_Y_BOTTOM - CONTENT_GAP;
+    var currentTime = Math.round(times[i]);
+
+    ctx.fillStyle = "#000000";
+    ctx.fillText(
+        names[i],
+        currentX,
+        currentY
+    );
+    ctx.fillText(
+        currentTime,
+        currentX,
+        currentY - CANVAS_FONT - currentBarHeight - CANVAS_GAP
+    );
+
+    ctx.fillStyle = (names[i] === "Вы") ? "rgba(255, 0, 0, 1)" : `hsl(230, 50%, ${getRandomInt(100)}%)`;
+
+    ctx.fillRect(
+        currentX,
+        currentY - CANVAS_FONT,
+        BAR_WIDTH,
+        currentBarHeight * (-1)
+    );
+  }
+};
+
+
+window.renderStatistics = function (ctx, names, times) {
   renderCloud(
       ctx,
       CANVAS_X + CANVAS_GAP,
@@ -60,34 +93,5 @@ window.renderStatistics = function (ctx, names, items) {
       CANVAS_Y + CONTENT_GAP + CANVAS_FONT * 2
   );
 
-
-  var maxTime = getMaxElement(items);
-
-  for (var i = 0; i < names.length; i++) {
-    var currentBarHeight = (BAR_HEIGHT * items[i]) / maxTime;
-    var currentX = CANVAS_X + BAR_GAP + (BAR_WIDTH + BAR_GAP) * i;
-    var currentY = CANVAS_Y_BOTTOM - CONTENT_GAP;
-    var currentTime = Math.round(items[i]);
-
-    ctx.fillStyle = "#000000";
-    ctx.fillText(
-        names[i],
-        currentX,
-        currentY
-    );
-    ctx.fillText(
-        currentTime,
-        currentX,
-        currentY - CANVAS_FONT - currentBarHeight - CANVAS_GAP
-    );
-
-    ctx.fillStyle = (names[i] === "Вы") ? "rgba(255, 0, 0, 1)" : `hsl(230, 50%, ${getRandomInt(100)}%)`;
-
-    ctx.fillRect(
-        currentX,
-        currentY - CANVAS_FONT,
-        BAR_WIDTH,
-        currentBarHeight * (-1)
-    );
-  }
+  renderPlayersResults(ctx, names, times);
 };
