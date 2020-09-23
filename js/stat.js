@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 var CANVAS_HEIGHT = 270;
 var CANVAS_WIDTH = 420;
@@ -42,7 +42,7 @@ var renderPlayersResults = function (ctx, names, times) {
     var currentY = CANVAS_Y_BOTTOM - CONTENT_GAP;
     var currentTime = Math.round(times[i]);
 
-    ctx.fillStyle = "#000000";
+    ctx.fillStyle = `#000000`;
     ctx.fillText(
         names[i],
         currentX,
@@ -54,7 +54,7 @@ var renderPlayersResults = function (ctx, names, times) {
         currentY - CANVAS_FONT - currentBarHeight - CANVAS_GAP
     );
 
-    ctx.fillStyle = (names[i] === "Вы") ? "rgba(255, 0, 0, 1)" : `hsl(230, 50%, ${getRandomInt(100)}%)`;
+    ctx.fillStyle = (names[i] === `Вы`) ? `rgba(255, 0, 0, 1)` : `hsl(230, 50%, ${getRandomInt(100)}%)`;
 
     ctx.fillRect(
         currentX,
@@ -71,24 +71,24 @@ window.renderStatistics = function (ctx, names, times) {
       ctx,
       CANVAS_X + CANVAS_GAP,
       CANVAS_Y + CANVAS_GAP,
-      "rgba(0, 0, 0, 0.7)"
+      `rgba(0, 0, 0, 0.7)`
   );
   renderCloud(
       ctx,
       CANVAS_X,
       CANVAS_Y,
-      "#ffffff"
+      `#ffffff`
   );
 
-  ctx.fillStyle = "#000000";
-  ctx.font = "16px PT Mono";
+  ctx.fillStyle = `#000000`;
+  ctx.font = `16px PT Mono`;
   ctx.fillText(
-      "Ура вы победили!",
+      `Ура вы победили!`,
       CANVAS_X + CONTENT_GAP,
       CANVAS_Y + CONTENT_GAP + CANVAS_FONT
   );
   ctx.fillText(
-      "Список результатов: ",
+      `Список результатов: `,
       CANVAS_X + CONTENT_GAP,
       CANVAS_Y + CONTENT_GAP + CANVAS_FONT * 2
   );
