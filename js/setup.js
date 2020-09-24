@@ -20,8 +20,6 @@ var COAT_COLORS = [
 ];
 
 
-setup.classList.remove(`hidden`);
-
 var getRandomArrayElement = function (arr) {
   var randomElement = Math.floor(Math.random() * arr.length);
   return arr[randomElement];
@@ -41,11 +39,11 @@ var getWizardsList = function (names, secondNames, coats, eyes) {
 };
 
 
-var renderWizard = function (wizards) {
+var renderWizard = function (wizard) {
   var wizardElement = templateSimilarWizard.cloneNode(true);
-  wizardElement.querySelector(`.setup-similar-label`).textContent = wizards.name;
-  wizardElement.querySelector(`.wizard-coat`).style.fill = wizards.coatColor;
-  wizardElement.querySelector(`.wizard-eyes`).style.fill = wizards.eyesColor;
+  wizardElement.querySelector(`.setup-similar-label`).textContent = wizard.name;
+  wizardElement.querySelector(`.wizard-coat`).style.fill = wizard.coatColor;
+  wizardElement.querySelector(`.wizard-eyes`).style.fill = wizard.eyesColor;
   return wizardElement;
 };
 
@@ -61,5 +59,6 @@ var renderSimilarWizardsList = function () {
 };
 
 
+setup.classList.remove(`hidden`);
 renderSimilarWizardsList();
 setupSimilar.classList.remove(`hidden`);
