@@ -6,7 +6,6 @@ var similarWizardsList = setup.querySelector(`.setup-similar-list`);
 var templateSimilarWizard = document.querySelector(`#similar-wizard-template`)
   .content.querySelector(`.setup-similar-item`);
 var setupOpen = document.querySelector(`.setup-open`);
-var setupIcon = document.querySelector(`.setup-open-icon`);
 var setupClose = document.querySelector(`.setup-close`);
 var userNameField = setup.querySelector(`.setup-user-name`);
 var wizardCoat = setup.querySelector(`.wizard-coat`);
@@ -25,15 +24,13 @@ var COAT_COLORS = [
   `rgb(215, 210, 55)`,
   `rgb(0, 0, 0)`,
 ];
-var FIREBALL_COLOR = [
+var FIREBALL_COLORS = [
   `#ee4830`,
   `#30a8ee`,
   `#5ce6c0`,
   `#e848d5`,
   `#e6e848`,
 ];
-var MIN_NAME_LENGTH = 2;
-var MAX_NAME_LENGTH = 25;
 
 
 var getRandomArrayElement = function (arr) {
@@ -43,15 +40,15 @@ var getRandomArrayElement = function (arr) {
 
 
 var getWizardsList = function (names, secondNames, coats, eyes) {
-  var wizardsList = [];
+  var similarWizards = [];
   for (var i = 0; i < WIZARDS_LIST_LENGTH; i++) {
-    wizardsList[i] = {
+    similarWizards[i] = {
       name: getRandomArrayElement(names) + ` ` + getRandomArrayElement(secondNames),
       coatColor: getRandomArrayElement(coats),
       eyesColor: getRandomArrayElement(eyes),
     };
   }
-  return wizardsList;
+  return similarWizards;
 };
 
 
@@ -104,7 +101,7 @@ setupOpen.addEventListener(`click`, function () {
   openPopup();
 });
 
-setupIcon.addEventListener(`keydown`, function (evt) {
+setupOpen.addEventListener(`keydown`, function (evt) {
   if (evt.key === `Enter`) {
     openPopup();
   }
@@ -121,33 +118,14 @@ setupClose.addEventListener(`keydown`, function (evt) {
 });
 
 
-// валидация формы
-
-userNameField.addEventListener(`input`, function () {
-  var nameLength = userNameField.value.length;
-
-  if (nameLength < MIN_NAME_LENGTH) {
-    userNameField.setCustomValidity(`Слишком короткое имя. Добавьте еще минимум ${MIN_NAME_LENGTH - nameLength} символ`);
-  } else if (nameLength > MAX_NAME_LENGTH) {
-    userNameField.setCustomValidity(`Слишком длинное имя. ${nameLength - MAX_NAME_LENGTH} лишних символа`);
-  } else {
-    userNameField.setCustomValidity(``);
-  }
-
-  userNameField.reportValidity();
-});
-
-
 // изменение цветов волшебника и файербола
 
-var onWIzardClick = function (colorArray, property, inputName) {
-  return function (evt) {
-    var color = getRandomArrayElement(colorArray);
-    evt.target.style[property] = color;
-    setup.querySelector(`input[name='${inputName}']`).value = color;
-  };
+var onWizardClick = function (colorArray, property, inputName, evt) {
+  var color = getRandomArrayElement(colorArray);
+  evt.target.style[property] = color;
+  setup.querySelector(`input[name='${inputName}']`).value = color;
 };
 
-wizardCoat.addEventListener(`click`, onWIzardClick(COAT_COLORS, `fill`, `coat-color`));
-wizardEyes.addEventListener(`click`, onWIzardClick(EYES_COLORS, `fill`, `eyes-color`));
-fireball.addEventListener(`click`, onWIzardClick(FIREBALL_COLOR, `backgroundColor`, `fireball-color`));
+wizardCoat.addEventListener(`click`, onWizardClick.bind(null, COAT_COLORS, `fill`, `coat-color`));
+wizardEyes.addEventListener(`click`, onWizardClick.bind(null, EYES_COLORS, `fill`, `eyes-color`));
+fireball.addEventListener(`click`, onWizardClick.bind(null, FIREBALL_COLORS, `backgroundColor`, `fireball-color`));
