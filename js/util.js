@@ -21,8 +21,8 @@
   };
 
   window.util = {
-    getRandomInt: getRandomInt,
-    getRandomArrayElement: getRandomArrayElement,
-    getMaxElement: getMaxElement,
+    getRandomInt,
+    getRandomArrayElement,
+    getMaxElement,
   };
 })();

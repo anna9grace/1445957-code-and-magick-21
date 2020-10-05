@@ -59,7 +59,7 @@
 
 
   window.wizards = {
-    EYES_COLORS: EYES_COLORS,
-    COAT_COLORS: COAT_COLORS,
+    EYES_COLORS,
+    COAT_COLORS,
   };
 })();
