@@ -20,9 +20,26 @@
     return maxElement;
   };
 
+  var showErrorMessage = function (message) {
+    var node = document.createElement('div');
+    node.style.zIndex = `100`;
+    node.style.textAlign = `center`;
+    node.style.color = `red`;
+    node.style.border = `3px solid red`;
+    node.style.backgroundColor = `white`;
+    node.style.position = 'absolute';
+    node.style.left = 0;
+    node.style.right = 0;
+    node.style.fontSize = '30px';
+
+    node.textContent = message;
+    document.body.insertAdjacentElement('afterbegin', node);
+  };
+
   window.util = {
     getRandomInt,
     getRandomArrayElement,
     getMaxElement,
+    showErrorMessage,
   };
 })();
