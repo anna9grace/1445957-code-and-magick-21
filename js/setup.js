@@ -1,7 +1,5 @@
 'use strict';
 
-// изменение цветов волшебника и файербола
-
 (function () {
   var setup = document.querySelector(`.setup`);
   var setupForm = setup.querySelector(`.setup-wizard-form`);
@@ -25,14 +23,43 @@
     `rgb(0, 0, 0)`,
   ];
 
+  var currentCoatColor = `rgb(0, 0, 0)`;
+  var currentEyesColor = `black`;
+
   var onWizardClick = function (colorArray, property, inputName, evt) {
     var color = window.util.getRandomArrayElement(colorArray);
     evt.target.style[property] = color;
     setup.querySelector(`input[name='${inputName}']`).value = color;
+    return color;
   };
 
-  wizardCoat.addEventListener(`click`, onWizardClick.bind(null, COAT_COLORS, `fill`, `coat-color`));
-  wizardEyes.addEventListener(`click`, onWizardClick.bind(null, EYES_COLORS, `fill`, `eyes-color`));
+
+  var onCoatClick = function (evt) {
+    window.setup.currentCoatColor = onWizardClick(COAT_COLORS, `fill`, `coat-color`, evt);
+
+    if (lastTimeout) {
+      window.clearTimeout(lastTimeout);
+    }
+    var lastTimeout = window.setTimeout(function () {
+      window.similars.updateWizards();
+    }, 500);
+  };
+
+
+  var onEyesClick = function (evt) {
+    window.setup.currentEyesColor = onWizardClick(EYES_COLORS, `fill`, `eyes-color`, evt);
+
+    if (lastTimeout) {
+      window.clearTimeout(lastTimeout);
+    }
+    var lastTimeout = window.setTimeout(function () {
+      window.similars.updateWizards();
+    }, 500);
+  };
+
+
+  wizardCoat.addEventListener(`click`, onCoatClick);
+  wizardEyes.addEventListener(`click`, onEyesClick);
   fireball.addEventListener(`click`, onWizardClick.bind(null, FIREBALL_COLORS, `backgroundColor`, `fireball-color`));
 
 
@@ -42,8 +69,13 @@
 
   var onSubmit = function (evt) {
     evt.preventDefault();
-    window.backend.save(new FormData(setupForm), onSaveSuccess, window.util.showErrorMessage);
+    window.backend.save(new FormData(setupForm), onSaveSuccess, window.util.onErrorMessage);
   };
 
   setupForm.addEventListener(`submit`, onSubmit);
+
+  window.setup = {
+    currentCoatColor,
+    currentEyesColor,
+  };
 })();
