@@ -23,7 +23,7 @@
     `rgb(0, 0, 0)`,
   ];
 
-  var currentCoatColor = `rgb(0, 0, 0)`;
+  var currentCoatColor = `rgb(101, 137, 164)`;
   var currentEyesColor = `black`;
 
   var onWizardClick = function (colorArray, property, inputName, evt) {
