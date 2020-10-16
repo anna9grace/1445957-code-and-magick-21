@@ -33,7 +33,7 @@
     updateWizards();
   };
 
-  window.backend.load(onLoadSuccess, window.util.showErrorMessage);
+  window.backend.load(onLoadSuccess, window.util.onDataLoadError);
 
 
   window.similars = {

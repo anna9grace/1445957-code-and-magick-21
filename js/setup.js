@@ -69,7 +69,7 @@
 
   var onSubmit = function (evt) {
     evt.preventDefault();
-    window.backend.save(new FormData(setupForm), onSaveSuccess, window.util.onErrorMessage);
+    window.backend.save(new FormData(setupForm), onSaveSuccess, window.util.onDataLoadError);
   };
 
   setupForm.addEventListener(`submit`, onSubmit);

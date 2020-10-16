@@ -20,7 +20,7 @@
     return maxElement;
   };
 
-  var showErrorMessage = function (message) {
+  var onDataLoadError = function (message) {
     var node = document.createElement(`div`);
     node.style.zIndex = `100`;
     node.style.textAlign = `center`;
@@ -50,7 +50,7 @@
     getRandomInt,
     getRandomArrayElement,
     getMaxElement,
-    showErrorMessage,
+    onDataLoadError,
     compareWords,
   };
 })();
